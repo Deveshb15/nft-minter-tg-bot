@@ -27,7 +27,7 @@ bot.onText(/\/gt (.+)/, async (msg, match) => {
   );
   console.log("Output ", output);
 
-    const response = await axios.post('https://api.nftport.xyz/v0/mints/easy/urls', {
+    const mint_res = await axios.post('https://api.nftport.xyz/v0/mints/easy/urls', {
         chain: 'polygon',
         name: resp,
         description: 'built with love by devesh',
@@ -41,7 +41,25 @@ bot.onText(/\/gt (.+)/, async (msg, match) => {
         }
       })
 
-  bot.sendPhoto(chatId, output[0], {caption: resp});
+      const mint_data = await mint_res.data
+      console.log("Mint data ", mint_data)
+
+      const txn_res = await axios.get(`https://api.nftport.xyz/v0/mints/${mint_data.transaction_hash}?chain=polygon`, {
+        headers: {
+          Authorization: process.env.NFTPORT_API_TOKEN,
+          Accept: 'application/json'
+        }
+      })
+      const txn_data = await txn_res.data
+      console.log("Txn data ", txn_data)
+      const minted_url = `https://opensea.io/assets/matic/${txn_data.contract_address}/${txn_data.token_id}`
+
+      const caption = `
+      Prompt: ${resp}
+      Minted NFT: ${minted_url}
+      `
+
+  bot.sendPhoto(chatId, output[0], {caption: caption});
 
 });
 
