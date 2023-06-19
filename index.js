@@ -112,5 +112,9 @@ Minted NFT: ${minted_url}
     bot.sendPhoto(chatId, output[0], { caption: caption });
   } catch (err) {
     console.log(err.message);
+    const errorMessage =
+      "Sorry! something went wrong\n\n" +
+      "Please try again in sometime" +
+    bot.sendMessage(chatId, errorMessage);
   }
 });
