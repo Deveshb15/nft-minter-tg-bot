@@ -114,5 +114,3 @@ Minted NFT: ${minted_url}
     console.log(err.message);
   }
 });
-
-// 0xE964d1ad040334E863a1c5D03594Aa59F1Abea2b
