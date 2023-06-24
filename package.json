@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "dev": "node index.js",
-    "build": "npm install"
+    "build": "npx netlify-lambda build"
   },
   "keywords": [],
   "author": "",
